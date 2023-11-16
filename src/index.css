@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-dark-grey font-hel text-m-size leading-[1.6];
+  }
+}
+
+@layer base {
+  button{
+    @apply border-none outline-none rounded-lg
+  }
+}
+
+@layer base {
+  h1 {
+    @apply text-[3rem];
+  }
+  /*h2 {*/
+  /*  @apply text-xl;*/
+  /*}*/
+  h3 {
+    @apply font-bold text-[18.5px];
+  }
+}
+
+.btn {
+  line-height: 1;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  font-weight: 300;
+  background: #1c88bf;
+  color: white;
+  margin-top: 1.6rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btt {
+  @apply btn;
+}
+
+@layer base{
+  .container {
+    @apply max-w-[80rem] mx-auto my-[0] py-[0] p-m-size
+  }
+}
+
+@layer base{
+  .list_item{
+    @apply flex flex-col border border-[#e5e5e5] border-t-0 text-dark-grey p-s-size no-underline transition ease-in-out delay-150 hover:bg-off-white md:flex-row md:justify-between md:items-center md:p-m-size
+  }
+}
