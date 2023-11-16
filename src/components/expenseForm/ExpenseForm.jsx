@@ -5,16 +5,14 @@ import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 
-const ExpenseForm = ({ onSubmit }) => {
+const ExpenseForm = ({ onSubmit, data }) => {
   const [error, setError] = useState('');
-  const [BtnTitle, setBtnTitle] = useState('Edit Expense' || 'Add Expense');
 
   const [expense, setExpense] = useState({
-    desc: '',
-    note: '',
-    amount: '',
-    createdAt: '' || moment(),
-    // BtnTitle: "Edit Expense" || "Add Expense",
+    desc: data?.desc || '',
+    note: data?.note || '',
+    amount: data?.amount || '',
+    createdAt: moment(data?.createdAt) || moment(),
   });
 
   const handleOnChange = (e) => {
@@ -77,7 +75,6 @@ const ExpenseForm = ({ onSubmit }) => {
         type="text"
         name="amount"
         placeholder="Amount"
-        autoFocus={true}
         onChange={onAmountChange}
         value={expense.amount}
       />
@@ -97,7 +94,7 @@ const ExpenseForm = ({ onSubmit }) => {
         value={expense.note}
       ></textarea>
       <div>
-        <button className="btt">Add Expense</button>
+        <button className="btt">{data ? 'Edit Expense' : 'Add Expense'}</button>
       </div>
     </form>
   );
