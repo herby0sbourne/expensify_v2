@@ -51,7 +51,7 @@ const ExpenseForm = ({ onSubmit, data }) => {
     }
 
     onSubmit({
-      description: expense.desc,
+      desc: expense.desc,
       amount: expense.amount,
       createdAt: expense.createdAt.valueOf(),
       note: expense.note,
