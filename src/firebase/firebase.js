@@ -8,8 +8,6 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 const firebaseConfig = {
   apiKey: "AIzaSyDsD8LBeRuNgVncDBFRUESqe28yT6Ihrqg",
   authDomain: "test-database-906a1.firebaseapp.com",
