@@ -1,5 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
+import { configureStore } from "@reduxjs/toolkit";
+
 import userReducer from "./user/userSlice";
 import expenseReducer from "./expense/expenseSlice.js";
 
@@ -18,4 +19,5 @@ const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false }).concat(middlewares),
   devTools: import.meta.env.VITE_NODE_ENV !== "production",
 });
+
 export default store;
