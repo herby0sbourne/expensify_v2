@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LogOut } from "../../firebase/firebase.js";
 
 const Header = () => {
   return (
@@ -9,7 +10,9 @@ const Header = () => {
             <Link to="/dashboard" className="text-white no-underline">
               <h1>Expensify</h1>
             </Link>
-            <button className="btt">Logout</button>
+            <button className="btt" onClick={LogOut}>
+              Logout
+            </button>
           </div>
         </div>
       </header>
