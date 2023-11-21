@@ -1,8 +1,10 @@
-import ExpenseListItem from '../expenseListItem/ExpenseListItem.jsx';
+import { useSelector } from "react-redux";
 
-import { expenses } from '../../../seedData.js';
+import ExpenseListItem from "../expenseListItem/ExpenseListItem.jsx";
+import { selectExpenses } from "../../redux/expense/expenseSlice.js";
 
 const ExpenseList = () => {
+  const expenses = useSelector(selectExpenses);
   return (
     <div className="container">
       <div className="bg-off-white border border-[#e5e5e5] text-grey flex justify-between py-s-size px-m-size">
