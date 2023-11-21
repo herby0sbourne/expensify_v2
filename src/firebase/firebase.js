@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, update } from "firebase/database";
+import { getDatabase, ref, push, update, get, child } from "firebase/database";
 import {
   getAuth,
   signInWithPopup,
@@ -26,8 +26,7 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
 export const signInInWithGoogle = async () => {
-  const user = await signInWithPopup(auth, provider);
-  console.log(user);
+  await signInWithPopup(auth, provider);
 };
 
 export const LogOut = async () => {
@@ -44,6 +43,28 @@ export const createExpense = async (uid, expenseData) => {
   const expenKey = newExpenseRef.key;
   await update(newExpenseRef, expenseData);
 
-  console.log({ expenKey });
   return expenKey;
+};
+
+export const getExpenses = async (uid) => {
+  const expenseRef = ref(DB);
+  const snapShot = await get(child(expenseRef, `users/${uid}/expenses`));
+
+  const transformedArray = Object.entries(snapShot.val()).map(
+    ([id, expense]) => {
+      return {
+        id,
+        desc: expense.description,
+        amount: Number(expense.amount),
+        createdAt: Number(expense.createdAT),
+        note: expense.note,
+      };
+    }
+  );
+
+  if (!snapShot.exists()) {
+    return [];
+  }
+
+  return transformedArray;
 };
