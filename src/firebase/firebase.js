@@ -54,9 +54,9 @@ export const getExpenses = async (uid) => {
     ([id, expense]) => {
       return {
         id,
-        desc: expense.description,
+        desc: expense.desc,
         amount: Number(expense.amount),
-        createdAt: Number(expense.createdAT),
+        createdAt: Number(expense.createdAt),
         note: expense.note,
       };
     }
@@ -67,4 +67,11 @@ export const getExpenses = async (uid) => {
   }
 
   return transformedArray;
+};
+
+export const updateExpense = async (uid, updateExpense) => {
+  const { id } = updateExpense;
+  const expenseRef = ref(DB, `users/${uid}/expenses/${id}`);
+
+  return await update(expenseRef, updateExpense);
 };
