@@ -1,26 +1,32 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import Title from '../../components/Title';
-import ExpenseForm from '../../components/expenseForm/ExpenseForm';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { expenses } from '../../../seedData';
+import Title from "../../components/Title";
+import ExpenseForm from "../../components/expenseForm/ExpenseForm";
+
+import {
+  selectExpenses,
+  startEditExpense,
+} from "../../redux/expense/expenseSlice.js";
 
 const EditExpensePage = () => {
   const { id } = useParams();
+  const expenses = useSelector(selectExpenses);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const expense = expenses.find((expense) => {
+    return expense.id === id;
+  });
 
   const handleOnSubmit = (expense) => {
-    console.log('update expense');
-    console.log(expense);
-    navigate(-1);
+    dispatch(startEditExpense(expense));
+    navigate("/");
   };
 
   const handleOnClick = () => {
-    console.log('remove expense');
+    console.log("remove expense");
   };
-
-  const expense = expenses.find((expense) => {
-    return expense.id == +id;
-  });
 
   return (
     <div>
