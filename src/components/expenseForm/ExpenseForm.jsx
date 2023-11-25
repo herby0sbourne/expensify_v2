@@ -1,17 +1,18 @@
-import { useState } from 'react';
-import DatePicker from 'react-date-picker';
+import moment from "moment";
+import { useState } from "react";
+import DatePicker from "react-date-picker";
 
-import 'react-date-picker/dist/DatePicker.css';
-import 'react-calendar/dist/Calendar.css';
-import moment from 'moment';
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
 
 const ExpenseForm = ({ onSubmit, data }) => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const [expense, setExpense] = useState({
-    desc: data?.desc || '',
-    note: data?.note || '',
-    amount: data?.amount || '',
+    id: data?.id || "",
+    desc: data?.desc || "",
+    note: data?.note || "",
+    amount: data?.amount || "",
     createdAt: moment(data?.createdAt) || moment(),
   });
 
@@ -47,10 +48,11 @@ const ExpenseForm = ({ onSubmit, data }) => {
     const { amount, desc } = expense;
 
     if (!desc || !amount) {
-      return setError('Please Provide description or amount.');
+      return setError("Please Provide description or amount.");
     }
 
     onSubmit({
+      id: expense.id,
       desc: expense.desc,
       amount: expense.amount,
       createdAt: expense.createdAt.valueOf(),
@@ -82,7 +84,8 @@ const ExpenseForm = ({ onSubmit, data }) => {
         className="border border-[#cacccd] h-[50px] text-[1.8rem] font-light px-s-size"
         calendarIcon={false}
         clearIcon={null}
-        selected={expense.createdAt}
+        // selected={expense.createdAt}
+        // defaultValue={moment() || new Date()}
         value={expense.createdAt}
         onChange={onDateChange}
       />
@@ -94,7 +97,7 @@ const ExpenseForm = ({ onSubmit, data }) => {
         value={expense.note}
       ></textarea>
       <div>
-        <button className="btt">{data ? 'Edit Expense' : 'Add Expense'}</button>
+        <button className="btt">{data ? "Edit Expense" : "Add Expense"}</button>
       </div>
     </form>
   );
