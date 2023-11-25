@@ -54,7 +54,7 @@ const ExpenseForm = ({ onSubmit, data }) => {
     onSubmit({
       id: expense.id,
       desc: expense.desc,
-      amount: expense.amount,
+      amount: Number(expense.amount),
       createdAt: expense.createdAt.valueOf(),
       note: expense.note,
     });
