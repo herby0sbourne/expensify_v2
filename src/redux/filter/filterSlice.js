@@ -13,7 +13,7 @@ const filtersSlice = createSlice({
   initialState,
   reducers: {
     filterBy: (state, action) => {
-      state.text = action.payload.text;
+      state.text = action.payload;
     },
     sortByAmount: (state) => {
       state.sortBy = "amount";
@@ -21,18 +21,29 @@ const filtersSlice = createSlice({
     sortByDate: (state) => {
       state.sortBy = "date";
     },
+    setDate: (state, action) => {
+      state.startDate = action.payload[0];
+      state.endDate = action.payload[1];
+    },
     setStartDate: (state, action) => {
-      state.startDate = action.payload.startDate;
+      state.startDate = action.payload;
     },
     setEndDate: (state, action) => {
-      state.endDate = action.payload.endDate;
+      state.endDate = action.payload;
     },
   },
 });
 
-export const { filterBy, sortByAmount, sortByDate, setStartDate, setEndDate } =
-  filtersSlice.actions;
+export const {
+  filterBy,
+  sortByAmount,
+  sortByDate,
+  setStartDate,
+  setEndDate,
+  setDate,
+} = filtersSlice.actions;
+
+export const selectFilters = (state) => state.filters;
 
 const filtersReducer = filtersSlice.reducer;
-
 export default filtersReducer;
