@@ -1,5 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, update, get, child } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  push,
+  update,
+  get,
+  child,
+  remove,
+} from "firebase/database";
 import {
   getAuth,
   signInWithPopup,
@@ -74,4 +82,10 @@ export const updateExpense = async (uid, updateExpense) => {
   const expenseRef = ref(DB, `users/${uid}/expenses/${id}`);
 
   return await update(expenseRef, updateExpense);
+};
+
+export const removeExpense = async (uid, id) => {
+  const expenseRef = ref(DB, `users/${uid}/expenses/${id}`);
+
+  return await remove(expenseRef);
 };
