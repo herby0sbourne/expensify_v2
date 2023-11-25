@@ -7,6 +7,7 @@ import ExpenseForm from "../../components/expenseForm/ExpenseForm";
 import {
   selectExpenses,
   startEditExpense,
+  startRemoveExpense,
 } from "../../redux/expense/expenseSlice.js";
 
 const EditExpensePage = () => {
@@ -25,7 +26,8 @@ const EditExpensePage = () => {
   };
 
   const handleOnClick = () => {
-    console.log("remove expense");
+    dispatch(startRemoveExpense(id));
+    navigate("/");
   };
 
   return (
