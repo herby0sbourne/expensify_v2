@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./user/userSlice";
 import expenseReducer from "./expense/expenseSlice.js";
+import filtersReducer from "./filter/filterSlice.js";
 
 const middlewares = [];
 
@@ -13,6 +14,7 @@ if (import.meta.env.VITE_NODE_ENV === "development") {
 const store = configureStore({
   reducer: {
     user: userReducer,
+    filters: filtersReducer,
     expenses: expenseReducer,
   },
   middleware: (getDefaultMiddleware) =>
