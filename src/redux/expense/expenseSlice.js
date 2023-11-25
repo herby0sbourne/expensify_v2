@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createExpense, updateExpense } from "../../firebase/firebase.js";
+import {
+  createExpense,
+  removeExpense,
+  updateExpense,
+} from "../../firebase/firebase.js";
 import { getExpenses } from "../../firebase/firebase";
 
 const startAddExpense = createAsyncThunk(
@@ -17,7 +21,7 @@ const startAddExpense = createAsyncThunk(
       console.error("Error adding expense:", e);
       throw e;
     }
-  },
+  }
 );
 
 const startGetExpenses = createAsyncThunk(
@@ -27,7 +31,7 @@ const startGetExpenses = createAsyncThunk(
 
     const expenses = await getExpenses(uid);
     dispatch(setExpenses(expenses));
-  },
+  }
 );
 
 const startEditExpense = createAsyncThunk(
@@ -37,7 +41,17 @@ const startEditExpense = createAsyncThunk(
 
     await updateExpense(uid, expenseData);
     dispatch(editExpense(expenseData));
-  },
+  }
+);
+
+const startRemoveExpense = createAsyncThunk(
+  "expense/startRemoveExpense",
+  async (id, { getState, dispatch }) => {
+    const uid = getState().user?.uid;
+
+    await removeExpense(uid, id);
+    dispatch(deleteExpense(id));
+  }
 );
 
 const expensesSlice = createSlice({
@@ -49,6 +63,11 @@ const expensesSlice = createSlice({
     },
     setExpenses: (state, action) => {
       state.push(...action.payload);
+    },
+    deleteExpense: (state, action) => {
+      const id = action.payload;
+
+      return state.filter((expense) => expense.id !== id);
     },
     editExpense: (state, action) => {
       const { id, ...updates } = action.payload;
@@ -66,7 +85,8 @@ const expensesSlice = createSlice({
   },
 });
 
-const { addExpense, setExpenses, editExpense } = expensesSlice.actions;
+const { addExpense, setExpenses, editExpense, deleteExpense } =
+  expensesSlice.actions;
 
 const expenseReducer = expensesSlice.reducer;
 const selectExpenses = (state) => state.expenses;
@@ -76,6 +96,7 @@ export {
   addExpense,
   startGetExpenses,
   startEditExpense,
+  startRemoveExpense,
   editExpense,
   selectExpenses,
   expenseReducer as default,
