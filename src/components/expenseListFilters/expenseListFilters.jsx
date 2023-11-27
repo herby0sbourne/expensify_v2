@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
-import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
-import "react-calendar/dist/Calendar.css";
 import {
   filterBy,
   selectFilters,
@@ -10,6 +8,10 @@ import {
   sortByAmount,
   sortByDate,
 } from "../../redux/filter/filterSlice.js";
+
+import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+import "react-calendar/dist/Calendar.css";
+import moment from "moment";
 
 const ExpenseListFilters = () => {
   const filters = useSelector(selectFilters);
@@ -20,8 +22,11 @@ const ExpenseListFilters = () => {
   };
 
   const onDateChange = (date) => {
-    console.log(date);
-    dispatch(setDate(date));
+    const startDate = date ? moment(date[0]) : moment().startOf("month");
+    const endDate = date ? moment(date[1]) : moment().endOf("month");
+
+    const dates = [startDate, endDate];
+    dispatch(setDate(dates));
   };
 
   const onSortChange = (e) => {
@@ -29,7 +34,7 @@ const ExpenseListFilters = () => {
       ? dispatch(sortByDate())
       : dispatch(sortByAmount());
   };
-  console.log(filters);
+
   return (
     <div className="container">
       <div className="flex flex-col mb-m-size md:flex-row md:mb-l-size">
