@@ -8,3 +8,6 @@ html {
   max-width: 130px;
   border: none !important;
 }
+.react-daterange-picker__wrapper{
+  border: none !important;
+}
