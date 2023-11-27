@@ -17,13 +17,12 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDsD8LBeRuNgVncDBFRUESqe28yT6Ihrqg",
-  authDomain: "test-database-906a1.firebaseapp.com",
-  databaseURL: "https://test-database-906a1-default-rtdb.firebaseio.com",
-  projectId: "test-database-906a1",
-  storageBucket: "test-database-906a1.appspot.com",
-  messagingSenderId: "114974596717",
-  appId: "1:114974596717:web:764180bb5b93434b32a964",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  databaseURL: import.meta.env.VITE_databaseURL,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase
@@ -67,7 +66,7 @@ export const getExpenses = async (uid) => {
         createdAt: Number(expense.createdAt),
         note: expense.note,
       };
-    }
+    },
   );
 
   if (!snapShot.exists()) {
