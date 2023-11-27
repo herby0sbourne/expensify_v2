@@ -29,8 +29,13 @@ const startGetExpenses = createAsyncThunk(
   async (_, { getState, dispatch }) => {
     const uid = getState().user?.uid;
 
-    const expenses = await getExpenses(uid);
-    dispatch(setExpenses(expenses));
+    try {
+      const expenses = await getExpenses(uid);
+      dispatch(setExpenses(expenses));
+    } catch (e) {
+      console.error("Error getting expenses", e);
+      throw e;
+    }
   }
 );
 
@@ -39,8 +44,13 @@ const startEditExpense = createAsyncThunk(
   async (expenseData, { getState, dispatch }) => {
     const uid = getState().user?.uid;
 
-    await updateExpense(uid, expenseData);
-    dispatch(editExpense(expenseData));
+    try {
+      await updateExpense(uid, expenseData);
+      dispatch(editExpense(expenseData));
+    } catch (e) {
+      console.error("Error updating expense", e);
+      throw e;
+    }
   }
 );
 
@@ -49,8 +59,13 @@ const startRemoveExpense = createAsyncThunk(
   async (id, { getState, dispatch }) => {
     const uid = getState().user?.uid;
 
-    await removeExpense(uid, id);
-    dispatch(deleteExpense(id));
+    try {
+      await removeExpense(uid, id);
+      dispatch(deleteExpense(id));
+    } catch (e) {
+      console.error("Error deleting expense", e);
+      throw e;
+    }
   }
 );
 
