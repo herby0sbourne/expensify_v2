@@ -2,9 +2,6 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { login } from "./redux/user/userSlice.js";
-import { onAuthStateChangedListener } from "./firebase/firebase.js";
-
 import LoginPage from "./pages/loginPage/LoginPage.jsx";
 import AddExpensePage from "./pages/addExpensePage/AddExpensePage.jsx";
 import EditExpensePage from "./pages/editExpensePage/EditExpensePage.jsx";
@@ -15,20 +12,16 @@ import PublicRoute from "./components/protectedRoute/PublicRoute.jsx";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute.jsx";
 
 import "./App.css";
+import { ListeningToAuthChanges } from "./redux/auth.js";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const un = onAuthStateChangedListener((user) => {
-      if (user) {
-        // console.log(user);
-      }
-      dispatch(login(user));
-    });
+    const unsubscribe = dispatch(ListeningToAuthChanges());
 
-    return un;
-  }, []);
+    return () => unsubscribe();
+  }, [dispatch]);
 
   return (
     <Routes>
