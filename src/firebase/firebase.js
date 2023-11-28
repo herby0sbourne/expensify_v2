@@ -17,12 +17,12 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_apiKey,
-  authDomain: import.meta.env.VITE_authDomain,
-  databaseURL: import.meta.env.VITE_databaseURL,
-  projectId: import.meta.env.VITE_projectId,
-  storageBucket: import.meta.env.VITE_storageBucket,
-  appId: import.meta.env.VITE_appId,
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_DATABASE_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 // Initialize Firebase
@@ -57,6 +57,10 @@ export const getExpenses = async (uid) => {
   const expenseRef = ref(DB);
   const snapShot = await get(child(expenseRef, `users/${uid}/expenses`));
 
+  if (!snapShot.exists()) {
+    return [];
+  }
+
   const transformedArray = Object.entries(snapShot.val()).map(
     ([id, expense]) => {
       return {
@@ -68,10 +72,6 @@ export const getExpenses = async (uid) => {
       };
     },
   );
-
-  if (!snapShot.exists()) {
-    return [];
-  }
 
   return transformedArray;
 };
