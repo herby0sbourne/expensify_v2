@@ -1,4 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { onAuthStatePromise } from "../../firebase/firebase";
+
+export const getAuthUser = createAsyncThunk(
+  "GetAuth",
+  async (_, { dispatch }) => {
+    const user = await onAuthStatePromise();
+    dispatch(login(user));
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -6,6 +15,9 @@ const userSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.uid = action.payload?.uid || null;
+    },
+    logout: (state) => {
+      state.user = null;
     },
   },
 });
