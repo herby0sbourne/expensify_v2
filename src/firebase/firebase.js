@@ -70,7 +70,7 @@ export const getExpenses = async (uid) => {
         createdAt: Number(expense.createdAt),
         note: expense.note,
       };
-    },
+    }
   );
 
   return transformedArray;
