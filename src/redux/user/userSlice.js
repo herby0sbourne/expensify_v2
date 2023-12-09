@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { onAuthStatePromise } from "../../firebase/firebase";
+import { createSlice } from "@reduxjs/toolkit";
+// import { onAuthStatePromise } from "../../firebase/firebase";
 
-export const getAuthUser = createAsyncThunk(
-  "GetAuth",
-  async (_, { dispatch }) => {
-    const user = await onAuthStatePromise();
-    dispatch(login(user));
-  }
-);
+// export const getAuthUser = createAsyncThunk(
+//   "GetAuth",
+//   async (_, { dispatch }) => {
+//     const user = await onAuthStatePromise();
+//     dispatch(login(user));
+//   }
+// );
 
 const userSlice = createSlice({
   name: "user",
