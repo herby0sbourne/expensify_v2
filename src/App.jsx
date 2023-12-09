@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import EditExpensePage from "./pages/editExpensePage/EditExpensePage.jsx";
 import ExpenseDashboardPage from "./pages/expenseDashboardPage/ExpenseDashboardPage";
 
 import Layout from "./components/Layout.jsx";
-import Loader from "./components/loader.jsx";
+import Loader from "./components/Loader.jsx";
 import PublicRoute from "./components/protectedRoute/PublicRoute.jsx";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute.jsx";
 
