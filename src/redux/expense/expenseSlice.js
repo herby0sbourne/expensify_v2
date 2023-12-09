@@ -108,11 +108,9 @@ const selectExpenses = (state) => state.expenses;
 
 export {
   startAddExpense,
-  addExpense,
   startGetExpenses,
   startEditExpense,
   startRemoveExpense,
-  editExpense,
   selectExpenses,
   expenseReducer as default,
 };
